@@ -1,4 +1,4 @@
-package ru.netology
+package ru.netology.data
 
 import java.util.*
 
