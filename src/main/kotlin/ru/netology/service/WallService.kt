@@ -2,7 +2,7 @@ package ru.netology.service
 
 import ru.netology.data.Post
 
-object WallService {
+class WallService {
 
     private var posts = emptyArray<Post>()
 
