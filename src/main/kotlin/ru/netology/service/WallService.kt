@@ -16,15 +16,14 @@ class WallService {
     }
 
     fun update(post: Post): Boolean {
-        for (item in posts){
+        for (item in posts) {
             if (item.id == post.id) {
                 val number = posts.indexOf(item)
-                posts[number]  = post.copy(id = item.id, ownerId = item.ownerId, date = item.date)
-               return true
-            } else
-                continue
+                posts[number] = post.copy(id = item.id, ownerId = item.ownerId, date = item.date)
+                return true
+            }
         }
         return false
     }
-
 }
+
