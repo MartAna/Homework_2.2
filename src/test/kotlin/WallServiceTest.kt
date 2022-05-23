@@ -1,7 +1,7 @@
 import junit.framework.TestCase.assertFalse
 import junit.framework.TestCase.assertTrue
 import org.junit.Test
-import ru.netology.data.Post
+import ru.netology.data.*
 import ru.netology.service.WallService
 
 class WallServiceTest {
@@ -30,6 +30,7 @@ class WallServiceTest {
                 "post",
                 null,
                 null,
+                null,
                 57,
                 false,
                 false,
@@ -42,10 +43,10 @@ class WallServiceTest {
             )
         )
 
-        // выполняем целевое действие
+
         val result = post.id
 
-        // проверяем результат (используйте assertTrue или assertFalse)
+
         assertTrue(result != 0)
 
 
@@ -73,6 +74,7 @@ class WallServiceTest {
                 null,
                 null,
                 "post",
+                null,
                 null,
                 null,
                 57,
@@ -105,6 +107,7 @@ class WallServiceTest {
                 "post",
                 null,
                 null,
+                null,
                 57,
                 false,
                 false,
@@ -135,6 +138,7 @@ class WallServiceTest {
                 "post",
                 null,
                 null,
+                null,
                 53,
                 false,
                 false,
@@ -163,6 +167,7 @@ class WallServiceTest {
             null,
             null,
             "post",
+            null,
             null,
             null,
             57,
@@ -207,6 +212,7 @@ class WallServiceTest {
                 "post",
                 null,
                 null,
+                null,
                 57,
                 false,
                 false,
@@ -235,6 +241,7 @@ class WallServiceTest {
                 null,
                 null,
                 "post",
+                null,
                 null,
                 null,
                 57,
@@ -267,6 +274,7 @@ class WallServiceTest {
                 "post",
                 null,
                 null,
+                null,
                 53,
                 false,
                 false,
@@ -297,6 +305,7 @@ class WallServiceTest {
             "post",
             null,
             null,
+            null,
             57,
             false,
             false,
@@ -313,5 +322,85 @@ class WallServiceTest {
 
 
         assertFalse(result)
+    }
+
+    @Test
+
+    fun addAttachmentTrue() {
+
+        val service = WallService()
+
+        service.add(
+            Post(id = 0, ownerId = 15)
+        )
+        service.add(
+            Post(id = 0, ownerId = 15)
+        )
+        service.add(
+            Post(id = 0, ownerId = 17)
+        )
+
+        val update = Post(id = 2, ownerId = 15)
+        val attachment = PhotoAttachment(Photo())
+        val result = service.addAttachment(update, attachment)
+
+
+        assertTrue(result)
+
+    }
+
+    @Test
+    fun addAttachmentTrueWithAttachment() {
+
+        val service = WallService()
+
+        service.add(
+            Post(id = 0, ownerId = 15)
+        )
+
+        service.add(
+            Post(id = 0, ownerId = 15)
+        )
+        service.add(
+            Post(id = 0, ownerId = 17)
+        )
+
+        val update = Post(id = 2, ownerId = 15)
+        val attachment = VideoAttachment(Video())
+        service.addAttachment(update, attachment)
+        val attachmentTwo = DocAttachment(Doc())
+        service.addAttachment(update, attachmentTwo)
+        val newAttachment = LinkAttachment(Link())
+
+        val result = service.addAttachment(update, newAttachment)
+
+
+        assertTrue(result)
+
+    }
+
+    @Test
+    fun addAttachmentFalse() {
+
+        val service = WallService()
+
+        service.add(
+            Post(id = 0, ownerId = 15)
+        )
+
+        service.add(
+            Post(id = 0, ownerId = 15)
+        )
+        service.add(
+            Post(id = 0, ownerId = 17)
+        )
+
+        val update = Post(id = 5, ownerId = 15)
+        val attachment = AudioAttachment(Audio())
+        val result = service.addAttachment(update, attachment)
+
+
+        assertFalse(result)
+
     }
 }
