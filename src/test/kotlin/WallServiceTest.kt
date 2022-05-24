@@ -1,6 +1,7 @@
 import junit.framework.TestCase.assertFalse
 import junit.framework.TestCase.assertTrue
 import org.junit.Test
+import ru.netology.service.PostNotFoundException
 import ru.netology.data.*
 import ru.netology.service.WallService
 
@@ -403,4 +404,53 @@ class WallServiceTest {
         assertFalse(result)
 
     }
+
+    @Test
+
+    fun createCommentTrue() {
+
+        val service = WallService()
+
+        service.add(
+            Post(id = 0, ownerId = 15)
+        )
+
+        service.add(
+            Post(id = 0, ownerId = 15)
+        )
+        service.add(
+            Post(id = 0, ownerId = 17)
+        )
+
+        val postId = 2
+        val comment = Comments()
+        val result = service.createComment(postId, comment)
+
+        assertTrue(result == comment)
+    }
+
+    @Test(expected = PostNotFoundException::class)
+
+    fun shouldThrow() {
+
+        val service = WallService()
+
+        service.add(
+            Post(id = 0, ownerId = 15)
+        )
+
+        service.add(
+            Post(id = 0, ownerId = 15)
+        )
+        service.add(
+            Post(id = 0, ownerId = 17)
+        )
+
+        val postId = 5
+        val comment = Comments()
+        service.createComment(postId, comment)
+
+    }
+
+
 }
