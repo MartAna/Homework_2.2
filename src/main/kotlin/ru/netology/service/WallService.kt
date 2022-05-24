@@ -1,11 +1,14 @@
 package ru.netology.service
 
 import ru.netology.data.Attachment
+import ru.netology.data.Comments
 import ru.netology.data.Post
+
 
 class WallService {
 
     private var posts = emptyArray<Post>()
+    private var comments = emptyArray<Comments>()
 
     private var property = 0
 
@@ -46,6 +49,17 @@ class WallService {
 
         }
         return false
+
+    }
+
+    fun createComment(postId: Int, comment: Comments): Comments {
+        for (item in posts) {
+            if (item.id == postId) {
+                comments += comment
+                return comments.last()
+            }
+        }
+        throw PostNotFoundException()
 
     }
 }
